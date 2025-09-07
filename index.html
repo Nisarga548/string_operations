@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>String Operations</title>
+  <style>
+    .container {
+      border-radius: 10px;
+      padding: 15px;
+      width: 500px;
+    }
+    input {
+      width: 70%;
+      padding: 6px;
+      font-size: 16px;
+    }
+    button {
+      padding: 6px 12px;
+      font-size: 16px;
+    }
+    .row {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 10px;
+    }
+    .box {
+      width: 48%;
+      padding: 5px;
+      border-radius: 6px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <input type="text" id="str" placeholder="Enter a string">
+    <button onclick="processString()">Do</button>
+
+    <div class="row">
+      <div class="box">Length : <span id="length"></span></div>
+      <div class="box">Uppercase : <span id="uppercase"></span></div>
+    </div>
+    <div class="row">
+      <div class="box">Lower case : <span id="lowercase"></span></div>
+      <div class="box">Middle character: <span id="middle"></span></div>
+    </div>
+    <div class="row">
+      <div class="box">Total words : <span id="words"></span></div>
+      <div class="box">Vowels count : <span id="vowels"></span></div>
+    </div>
+    <div class="row">
+      <div class="box">Consonants : <span id="consonants"></span></div>
+      <div class="box">camelCase : <span id="camel"></span></div>
+    </div>
+  </div>
+
+  <script>
+    function processString() {
+      let str = document.getElementById("str").value;
+
+      document.getElementById("length").innerText = str.length;
+      document.getElementById("uppercase").innerText = str.toUpperCase();
+      document.getElementById("lowercase").innerText = str.toLowerCase();
+
+      let middleChar = str.length > 0 ? str.charAt(Math.floor(str.length / 2)) : "";
+      document.getElementById("middle").innerText = middleChar;
+
+      let words = str.trim() === "" ? [] : str.trim().split(/\s+/);
+      document.getElementById("words").innerText = words.length;
+
+      let vowels = 0;
+      let consonants = 0;
+      for (let chr of str.toLowerCase()) {
+        if (chr >= 'a' && chr <= 'z') {
+          if ("aeiou".includes(chr)) {
+            vowels++;
+          } else {
+            consonants++;
+          }
+        }
+      }
+      document.getElementById("vowels").textContent = vowels;
+      document.getElementById("consonants").textContent = consonants;
+
+      let camelCase = "";
+      if (words.length > 0) {
+        camelCase = words[0].toLowerCase();
+        for (let i = 1; i < words.length; i++) {
+          let word = words[i];
+          if (word !== "") {
+            camelCase += word[0].toUpperCase() + word.slice(1).toLowerCase();
+          }
+        }
+      }
+      document.getElementById("camel").textContent = camelCase;
+    }
+  </script>
+</body>
+</html>
